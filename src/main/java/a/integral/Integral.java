@@ -26,13 +26,18 @@ public class Integral {
         long time1start = System.nanoTime();
         for (int i = 1; i <= n; ++i) {
             SumTask task = new SumTask((((begin + end) / n) * (i - 1)), ((begin + end) / n) * i, n, intervalCount);
-            task.run();
+            task.start();
             list.add(task);
+        }
+        
+        double result = 0;
+        for (SumTask task : list) {
+            result += task.getSum();
         }
         
         long time1end = System.nanoTime() - time1start;
         System.out.println("Данные для 8 потоков: ");
-        System.out.println("Результат: " + list.stream().mapToDouble(s -> s.getSum()).sum());
+        System.out.println("Результат: " + result);
         System.out.println("Время выполнения: " + time1end);
         System.out.println();
         
@@ -42,13 +47,18 @@ public class Integral {
         long time2start = System.nanoTime(); 
         for (int i = 1; i <= n; ++i) {
             SumTask task = new SumTask((((begin + end) / n) * (i - 1)), ((begin + end) / n) * i, n, intervalCount);
-            task.run();
+            task.start();
             list.add(task);
+        }
+        
+        double result = 0;
+        for (SumTask task : list) {
+            result += task.getSum();
         }
         
         long time2end = System.nanoTime() - time2start; 
         System.out.println("Данные для 1 потока: ");
-        System.out.println("Результат: " + list.stream().mapToDouble(s -> s.getSum()).sum());
+        System.out.println("Результат: " + result);
         System.out.println("Время выполнения: " + time2end);
         
     }
